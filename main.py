@@ -31,7 +31,7 @@ data[" Financial Flexibility"] = data[" Financial Flexibility"].map(rep_column)
 data["Credibility"] = data["Credibility"].map(rep_column)
 data["Competitiveness"] = data["Competitiveness"].map(rep_column)
 data["Operating Risk"] = data["Operating Risk"].map(rep_column)
-print(data.head())
+
 data.to_csv("data_new.csv",index=None,header=True)
 
 
