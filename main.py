@@ -17,11 +17,11 @@ def rep(x):
 
 def rep_column(x):
     if x == 'P':
-        return 1
+        return float(1)
     elif x == 'A':
-        return 2
+        return float(2)
     else:
-        return 3
+        return float(3)
 
 
 data["Class"] = data["Class"].map(rep)
@@ -57,6 +57,24 @@ Classifier = SVC(kernel='linear')
 model = Classifier.fit(X_train,y_train)
 accu = model.score(X_train,y_train)
 
+print("Accuracy of SVC: " , accu)
+
+# Build Logistic Regression
+Classifier = LogisticRegression(solver='liblinear')
+model = Classifier.fit(X_train,y_train)
+accu = model.score(X_train,y_train)
+
+print("Accuracy of Logistic Regression: " , accu)
+
+
+#Perform data split 70%
+[X_train,X_test,y_train , y_test] = train_test_split(X, y, test_size=0.3, random_state=0)
+
+# Build SVC Classifier
+Classifier = SVC(kernel='linear')
+model = Classifier.fit(X_train,y_train)
+accu = model.score(X_train,y_train)
+print()
 print("Accuracy of SVC: " , accu)
 
 # Build Logistic Regression
