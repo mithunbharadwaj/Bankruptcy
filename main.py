@@ -1,10 +1,16 @@
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
 import numpy as np
 from sklearn.svm import SVC
+
+
 #read the CSV
 #
+
+#read the CSV
+
 data = pd.read_csv("data.csv")
 X = np.array(data.drop(["Class"],axis=1))
 y = np.array(data["Class"])
@@ -49,7 +55,7 @@ X = np.array(data.drop(["Class"],axis=1))
 
 y = np.array(data["Class"])
 
-#Perform data split 90%
+#Perform data split 90% tranin and 10% test data
 [X_train,X_test,y_train , y_test] = train_test_split(X, y, test_size=0.1, random_state=0)
 
 # Build SVC Classifier
@@ -65,10 +71,13 @@ model = Classifier.fit(X_train,y_train)
 accu = model.score(X_train,y_train)
 
 print("Accuracy of Logistic Regression: " , accu)
+#TODO:
+#1. NEURALNETWORK
+#2. NAIVE-BIAS
+#3. CROSS-VALIDATION
 
-
-#Perform data split 70%
-[X_train,X_test,y_train , y_test] = train_test_split(X, y, test_size=0.3, random_state=0)
+#Perform data split 70% data split and 30% test
+[X_train,X_test,y_train , y_test] = train_test_split(X, y, test_size=0.2, random_state=0)
 
 # Build SVC Classifier
 Classifier = SVC(kernel='linear')
@@ -83,3 +92,11 @@ model = Classifier.fit(X_train,y_train)
 accu = model.score(X_train,y_train)
 
 print("Accuracy of Logistic Regression: " , accu)
+
+# Build Logistic Regression
+Classifier = MLPClassifier(solver='lbfgs')
+model = Classifier.fit(X_train,y_train)
+accu = model.score(X_train,y_train)
+
+print()
+print("Accuracy of Neural Regressi: ",accu)
