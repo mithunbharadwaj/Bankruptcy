@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 import numpy as np
 from sklearn.svm import SVC
+from sklearn import tree
 
 
 #read the CSV
@@ -83,6 +84,7 @@ print("Accuracy of Logistic Regression: " , accu)
 Classifier = SVC(kernel='linear')
 model = Classifier.fit(X_train,y_train)
 accu = model.score(X_train,y_train)
+
 print()
 print("Accuracy of SVC: " , accu)
 
@@ -93,10 +95,18 @@ accu = model.score(X_train,y_train)
 
 print("Accuracy of Logistic Regression: " , accu)
 
-# Build Logistic Regression
+# Build Neural Network
 Classifier = MLPClassifier(solver='lbfgs')
 model = Classifier.fit(X_train,y_train)
 accu = model.score(X_train,y_train)
 
 print()
-print("Accuracy of Neural Regressi: ",accu)
+print("Accuracy of Neural Network: ",accu)
+
+# Build Decision tree
+Classifier = tree.DecisionTreeClassifier()
+model = Classifier.fit(X_train,y_train)
+accu = model.score(X_train,y_train)
+
+print()
+print("Accuracy of Decision tree: ",accu)
