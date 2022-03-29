@@ -5,8 +5,9 @@ from sklearn.neural_network import MLPClassifier
 import numpy as np
 from sklearn.svm import SVC
 from sklearn import tree
-
-
+from sklearn import datasets
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score
 #read the CSV
 #
 
@@ -59,23 +60,14 @@ y = np.array(data["Class"])
 #Perform data split 90% tranin and 10% test data
 [X_train,X_test,y_train , y_test] = train_test_split(X, y, test_size=0.1, random_state=0)
 
-# Build SVC Classifier
-Classifier = SVC(kernel='linear')
-model = Classifier.fit(X_train,y_train)
-accu = model.score(X_train,y_train)
+X,y = datasets.load_iris(return_X_y=True)
 
-print("Accuracy of SVC: " , accu)
 
 # Build Logistic Regression
 Classifier = LogisticRegression(solver='liblinear')
 model = Classifier.fit(X_train,y_train)
 accu = model.score(X_train,y_train)
 
-print("Accuracy of Logistic Regression: " , accu)
-#TODO:
-#1. NEURALNETWORK
-#2. NAIVE-BIAS
-#3. CROSS-VALIDATION
 
 #Perform data split 70% data split and 30% test
 [X_train,X_test,y_train , y_test] = train_test_split(X, y, test_size=0.2, random_state=0)
@@ -87,6 +79,15 @@ accu = model.score(X_train,y_train)
 
 print()
 print("Accuracy of SVC: " , accu)
+score_cv = cross_val_score(model,X,y , cv=5)
+print("%0.2f accuracy with a standard deviation of %0.2f" % (score_cv.mean(), score_cv.std()))
+print("Scores of CV: " ,score_cv)
+print("Traning accuracy")
+print(accuracy_score(y_train, model.predict(X_train)))
+print("testing accuracy")
+predictions = model.predict(X_test)
+print(accuracy_score(y_test, predictions))
+print()
 
 # Build Logistic Regression
 Classifier = LogisticRegression(solver='liblinear')
@@ -94,15 +95,34 @@ model = Classifier.fit(X_train,y_train)
 accu = model.score(X_train,y_train)
 
 print("Accuracy of Logistic Regression: " , accu)
+score_cv = cross_val_score(model,X,y , cv=5)
+print("Scores of CV: " ,score_cv)
+print("Traning accuracy")
+print(accuracy_score(y_train, model.predict(X_train)))
+print("testing accuracy")
+predictions = model.predict(X_test)
+print(accuracy_score(y_test, predictions))
+print()
+
 
 # Build Neural Network
-Classifier = MLPClassifier(solver='lbfgs')
+Classifier = MLPClassifier(max_iter=1000)
 model = Classifier.fit(X_train,y_train)
+print("%0.2f accuracy with a standard deviation of %0.2f" % (score_cv.mean(), score_cv.std()))
 accu = model.score(X_train,y_train)
 
 print()
 print("Accuracy of Neural Network: ",accu)
-
+score_cv = cross_val_score(model,X,y , cv=5)
+print("Scores of CV: " ,score_cv)
+print("Traning accuracy")
+print(accuracy_score(y_train, model.predict(X_train)))
+print("testing accuracy")
+predictions = model.predict(X_test)
+print(accuracy_score(y_test, predictions))
+print("%0.2f accuracy with a standard deviation of %0.2f" % (score_cv.mean(), score_cv.std()))
+print()
+print()
 # Build Decision tree
 Classifier = tree.DecisionTreeClassifier()
 model = Classifier.fit(X_train,y_train)
@@ -110,3 +130,12 @@ accu = model.score(X_train,y_train)
 
 print()
 print("Accuracy of Decision tree: ",accu)
+score_cv = cross_val_score(model,X,y , cv=5)
+print("%0.2f accuracy with a standard deviation of %0.2f" % (score_cv.mean(), score_cv.std()))
+print("Scores of CV: " ,score_cv)
+print("Traning accuracy")
+print(accuracy_score(y_train, model.predict(X_train)))
+print("testing accuracy")
+predictions = model.predict(X_test)
+print(accuracy_score(y_test, predictions))
+print()
